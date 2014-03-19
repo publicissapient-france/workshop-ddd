@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+    <class name="com.xebia.user.Role">
+        <id name="id" type="long" unsaved-value="-1">
+            <generator class="native"/>
+        </id>
+        <property name="roleName" type="java.lang.String" />
+        <one-to-one name="user" class="com.xebia.user.User" cascade="all" lazy="false" />
+    </class>
+</hibernate-mapping>

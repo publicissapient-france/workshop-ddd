@@ -1,0 +1,27 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+    <persistence-unit name="dddDB">
+        <mapping-file>META-INF/CustomTypes.hbm.xml</mapping-file>
+        <mapping-file>META-INF/Currency.hbm.xml</mapping-file>
+        <mapping-file>META-INF/Credit.hbm.xml</mapping-file>
+        <mapping-file>META-INF/EcheanceRequest.hbm.xml</mapping-file>
+        <mapping-file>META-INF/Role.hbm.xml</mapping-file>
+        <mapping-file>META-INF/User.hbm.xml</mapping-file>
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE" />
+            <property name="javax.persistence.jdbc.user" value="sa" />
+            <property name="javax.persistence.jdbc.password" value="" />
+
+            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+        </properties>
+
+    </persistence-unit>
+
+</persistence>

@@ -1,2 +1,2 @@
-workshop-ddd
-============
+Workshop Domain Driven Design
+=============================

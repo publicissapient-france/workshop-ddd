@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+    <class name="com.xebia.domain.credit.Credit">
+        <id name="id" type="long" unsaved-value="-1">
+            <generator class="native"/>
+        </id>
+        <component name="creditId" class="com.xebia.domain.credit.CreditId">
+            <property name="id" column="product_id_id" type="java.lang.String"/>
+            <property name="referenceCode" column="referenceCode" type="java.lang.String"/>
+        </component>
+        <property name="name" type="java.lang.String"/>
+        <property name="technicalCode" type="java.lang.String"/>
+        <property name="marketDate" type="java.util.Date"/>
+        <property name="placeDate" type="java.util.Date"/>
+
+        <bag name="echeanceRequests" cascade="all,delete-orphan" inverse="false" lazy="true">
+            <key column="ECHEANCEREQUESTS_ID"/>
+            <one-to-many class="com.xebia.domain.echeance.EcheanceRequest"/>
+        </bag>
+
+        <component name="currencyBook">
+            <bag name="currencies" cascade="all,delete-orphan" inverse="false" lazy="true">
+                <key column="DEVISE_ID"/>
+                <one-to-many class="com.xebia.domain.currency.Currency"/>
+            </bag>
+        </component>
+
+    </class>
+</hibernate-mapping>
