@@ -18,8 +18,8 @@ public class CreditTest {
         EcheanceRequest echeanceRequest2 = new EcheanceRequestBuilder().isInactive().build();
 
         Credit credit = new Credit();
-        credit.getEcheanceRequests().add(echeanceRequest1);
-        credit.getEcheanceRequests().add(echeanceRequest2);
+        credit.addEcheance(echeanceRequest1);
+        credit.addEcheance(echeanceRequest2);
 
         //WHEN
         List<EcheanceRequest> echeanceRequestActive = credit.getEcheanceRequestActive();

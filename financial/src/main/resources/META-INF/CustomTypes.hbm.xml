@@ -5,4 +5,6 @@
 
 <hibernate-mapping>
     <typedef class="com.xebia.port.adapter.persistence.CreditDecimalType" name="creditDecimal" />
+
+    <typedef class="com.xebia.port.adapter.persistence.AmountType" name="amount"/>
 </hibernate-mapping>

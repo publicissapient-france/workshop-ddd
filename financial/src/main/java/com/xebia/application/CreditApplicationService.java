@@ -1,30 +1,30 @@
-package com.xebia.domain.credit;
+package com.xebia.application;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
-import com.xebia.domain.credit.Credit;
-import com.xebia.domain.credit.CreditRepository;
 import com.xebia.domain.currency.Currency;
+import com.xebia.domain.echeance.CreditDecimal;
 import com.xebia.domain.echeance.EcheanceRequest;
 import com.xebia.domain.echeance.EcheanceRequestBuilder;
+import com.xebia.domain.credit.Credit;
+import com.xebia.domain.credit.CreditRepository;
 import com.xebia.port.adapter.service.CreditDataService;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 @Transactional
-public class CreditService {
+public class CreditApplicationService {
 
     private CreditDataService dataService;
 
     private CreditRepository creditRepository;
 
     @Inject
-    public CreditService(CreditDataService dataService, CreditRepository creditRepository) {
+    public CreditApplicationService(CreditDataService dataService, CreditRepository creditRepository) {
         this.dataService = dataService;
         this.creditRepository = creditRepository;
     }
@@ -35,7 +35,7 @@ public class CreditService {
         List<EcheanceRequest> echeanceRequestValuations = Lists.newArrayList();
 
         for (EcheanceRequest echeanceRequest : echeanceRequestActive) {
-            BigDecimal creditValuation = echeanceRequest.crd();
+            CreditDecimal creditValuation = echeanceRequest.crd();
 
             if (containsFundingCurrencies(credit.getCurrencyBook().getCurrencies())) {
                 creditValuation = applyCrossChange(creditValuation, valueDate);
@@ -53,11 +53,11 @@ public class CreditService {
     public void addEcheanceToCredit(Long idProduct, EcheanceRequest echeanceRequest) {
         Credit credit = creditRepository.findOne(idProduct);
 
-        credit.getEcheanceRequests().add(echeanceRequest);
+        credit.addEcheance(echeanceRequest);
     }
 
-    BigDecimal applyCrossChange(BigDecimal value, Date date) {
-        BigDecimal crossChange = dataService.getCrossChange(date);
+    CreditDecimal applyCrossChange(CreditDecimal value, Date date) {
+        CreditDecimal crossChange = dataService.getCrossChange(date);
         return value.divide(crossChange);
     }
 

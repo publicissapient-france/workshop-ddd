@@ -16,10 +16,12 @@
         <property name="marketDate" type="java.util.Date"/>
         <property name="placeDate" type="java.util.Date"/>
 
-        <bag name="echeanceRequests" cascade="all,delete-orphan" inverse="false" lazy="true">
-            <key column="ECHEANCEREQUESTS_ID"/>
-            <one-to-many class="com.xebia.domain.echeance.EcheanceRequest"/>
-        </bag>
+        <component name="echeanceRequestBook">
+            <bag name="echeanceRequests" cascade="all,delete-orphan" inverse="false" lazy="true">
+                <key column="ECHEANCEREQUESTS_ID"/>
+                <one-to-many class="com.xebia.domain.echeance.EcheanceRequest"/>
+            </bag>
+        </component>
 
         <component name="currencyBook">
             <bag name="currencies" cascade="all,delete-orphan" inverse="false" lazy="true">

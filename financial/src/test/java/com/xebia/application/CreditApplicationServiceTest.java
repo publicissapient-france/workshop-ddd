@@ -1,9 +1,9 @@
-package com.xebia.domain.credit;
+package com.xebia.application;
 
 import com.google.common.collect.Lists;
 import com.xebia.domain.credit.CreditBuilder;
-import com.xebia.domain.credit.CreditService;
 import com.xebia.domain.currency.Currency;
+import com.xebia.domain.echeance.CreditDecimal;
 import com.xebia.domain.echeance.EcheanceRequest;
 import com.xebia.domain.echeance.EcheanceRequestBuilder;
 import com.xebia.domain.credit.Credit;
@@ -22,9 +22,9 @@ import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CreditServiceTest {
+public class CreditApplicationServiceTest {
 
-    private CreditService productService;
+    private CreditApplicationService productService;
 
     @Mock
     private CreditDataService dataService;
@@ -34,7 +34,7 @@ public class CreditServiceTest {
 
     @Before
     public void init() throws Exception {
-        productService = new CreditService(dataService, creditRepository);
+        productService = new CreditApplicationService(dataService, creditRepository);
     }
 
     @Test
@@ -78,10 +78,10 @@ public class CreditServiceTest {
         // Given
         Credit credit = new CreditBuilder().build();
 
-        credit.getEcheanceRequests().add(new EcheanceRequest(new DateTime(2014, 5, 1, 0, 0).toDate(), new BigDecimal("1500")));
-        credit.getEcheanceRequests().add(new EcheanceRequest(new DateTime(2014, 6, 1, 0, 0).toDate(), new BigDecimal("1000")));
-        credit.getEcheanceRequests().add(new EcheanceRequest(new DateTime(2014, 7, 1, 0, 0).toDate(), new BigDecimal("500")));
-        credit.getEcheanceRequests().add(new EcheanceRequest(new DateTime(2014, 8, 1, 0, 0).toDate(), new BigDecimal("0")));
+        credit.addEcheance(new EcheanceRequest(new DateTime(2014, 5, 1, 0, 0).toDate(), new CreditDecimal(new BigDecimal("1500"))));
+        credit.addEcheance(new EcheanceRequest(new DateTime(2014, 6, 1, 0, 0).toDate(), new CreditDecimal(new BigDecimal("1000"))));
+        credit.addEcheance(new EcheanceRequest(new DateTime(2014, 7, 1, 0, 0).toDate(), new CreditDecimal(new BigDecimal("500"))));
+        credit.addEcheance(new EcheanceRequest(new DateTime(2014, 8, 1, 0, 0).toDate(), new CreditDecimal(new BigDecimal("0"))));
 
         // When
         Integer result = productService.countRemainingEcheanceAfter(credit, new DateTime(2014, 6, 2, 0, 0).toDate());

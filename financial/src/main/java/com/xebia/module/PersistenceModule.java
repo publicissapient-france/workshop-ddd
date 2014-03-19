@@ -2,7 +2,7 @@ package com.xebia.module;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.xebia.domain.credit.CreditService;
+import com.xebia.application.CreditApplicationService;
 import com.xebia.domain.credit.CreditRepository;
 import com.xebia.infrastructure.persistence.HibernateCreditRepository;
 
@@ -20,7 +20,7 @@ public class PersistenceModule extends AbstractModule {
 
         bind(CreditRepository.class).to(HibernateCreditRepository.class);
 
-        bind(CreditService.class);
+        bind(CreditApplicationService.class);
     }
 
     @Provides

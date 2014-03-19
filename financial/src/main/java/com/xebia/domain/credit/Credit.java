@@ -1,11 +1,9 @@
 package com.xebia.domain.credit;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.xebia.domain.currency.Currency;
 import com.xebia.domain.currency.CurrencyBook;
 import com.xebia.domain.echeance.EcheanceRequest;
+import com.xebia.domain.echeance.EcheanceRequestBook;
 import com.xebia.model.Entity;
 
 import java.util.Date;
@@ -25,7 +23,7 @@ public class Credit extends Entity {
 
     private Date placeDate;
 
-    private List<EcheanceRequest> echeanceRequests = Lists.newArrayList();
+    private EcheanceRequestBook echeanceRequestBook = new EcheanceRequestBook();
 
     private CurrencyBook currencyBook = new CurrencyBook();
 
@@ -79,6 +77,10 @@ public class Credit extends Entity {
         this.placeDate = placeDate;
     }
 
+    public void addEcheance(EcheanceRequest echeanceRequest) {
+        this.echeanceRequestBook.getEcheanceRequests().add(echeanceRequest);
+    }
+
     public CurrencyBook getCurrencyBook() {
         return currencyBook;
     }
@@ -112,19 +114,7 @@ public class Credit extends Entity {
     }
 
     public List<EcheanceRequest> getEcheanceRequestActive() {
-        return Lists.newArrayList(Iterables.filter(getEcheanceRequests(), new Predicate<EcheanceRequest>() {
-            @Override
-            public boolean apply(EcheanceRequest echeanceRequest) {
-                return echeanceRequest.active();
-            }
-        }));
+        return this.echeanceRequestBook.getEcheanceRequestActive();
     }
 
-    public List<EcheanceRequest> getEcheanceRequests() {
-        return echeanceRequests;
-    }
-
-    public void setEcheanceRequests(List<EcheanceRequest> echeanceRequests) {
-        this.echeanceRequests = echeanceRequests;
-    }
 }

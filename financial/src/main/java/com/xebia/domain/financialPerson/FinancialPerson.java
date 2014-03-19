@@ -5,12 +5,12 @@ import static com.google.common.base.Preconditions.checkArgument;
 public abstract class FinancialPerson {
 
   private String name;
-  private String email;
+  private EmailAddress email;
 
   protected FinancialPerson() {
   }
 
-  public FinancialPerson(String name, String email) {
+  public FinancialPerson(String name, EmailAddress email) {
     this.name = name;
     this.email = email;
   }
@@ -19,7 +19,7 @@ public abstract class FinancialPerson {
     return name;
   }
 
-  public String getEmail() {
+  public EmailAddress getEmail() {
     return email;
   }
 
@@ -27,7 +27,7 @@ public abstract class FinancialPerson {
     this.name = name;
   }
 
-  private void setEmail(String email) {
+  private void setEmail(EmailAddress email) {
     checkArgument(email != null, "The email is required.");
     this.email = email;
   }

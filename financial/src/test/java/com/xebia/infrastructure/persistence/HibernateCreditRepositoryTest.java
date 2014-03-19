@@ -28,7 +28,7 @@ public class HibernateCreditRepositoryTest extends AbstractIntegrationTest {
         // Given
         EcheanceRequest echeanceRequest = new EcheanceRequestBuilder().withPaymentDate(new Date()).build();
         Credit credit = new CreditBuilder().withName("Save credit test").withMarketDate(new Date()).build();
-        credit.getEcheanceRequests().add(echeanceRequest);
+        credit.addEcheance(echeanceRequest);
 
         // When
         creditRepository.save(credit);
