@@ -1,2 +1,0 @@
-Workshop Domain Driven Design
-=============================

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print"/>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Workshop Domain Driven Design Xebia france</title>
+    <meta name="Description" CONTENT="Exercise on Domain Driven Design">
+</head>
+
+<body>
+<div id="container">
+<div class="inner">
+
+<header>
+    <h1>Workshop Domain Driven Design</h1>
+
+    <h2>By Xebia France</h2>
+</header>
+
+<section id="main_content">
+<h3>Domain Driven Design Credit</h3>
+
+<p>Le but de l’exercice est d’analyser le code et les règles fonctionnelles afin d’introduire les notions métiers dans le code à l’aide des concepts issues du DDD.</p>
+
+<p>L’application est un back end dans lequel des utilisateurs peuvent valoriser des emprunts.</p>
+
+<p>
+    <ul>
+        Un utilisateur a un rôle :
+        <li> un vendeur (sales) </li>
+        <li> un ingénieur financier (pricer)</li>
+        <li> un trader</li>
+    </ul>
+</p>
+
+<p>
+    <ul>
+        Dans notre domaine, ces utilisateurs possèdent les informations suivantes :
+        <li> name : firstname + lastname du user</li>
+        <li> email</li>
+    </ul>
+</p>
+
+<p>
+    <ul>
+        Un emprunt possède les caractéristiques suivantes :
+        <li> il est identifié par le code de référence qui est unique </li>
+        <li> il possède des échéances</li>
+        <li> il possède des devises (currencies)</li>
+    </ul>
+</p>
+
+<p>
+    <ul>
+        Une échéance correspond à des remboursements périodiques:
+        <li> une date de remboursement </li>
+        <li> un capital restant dû (crd) : c’est le capital total qui reste après paiement de l’échéance</li>
+    </ul>
+</p>
+
+<p>
+Une devise (EUR, USD, CHF, etc) correspond à la monnaie d’un pays. Cela sert notamment à savoir le taux de conversion d’une devise à l’autre. 
+Dans les devises, nous avons la notion de funding : ce sont des devises pour lesquelles nous n’avons pas à effectuer de conversion. 
+Le projet contient deux fundings : EUR et USD.
+La devise de référence est EUR.
+</p>
+
+<p>
+    <ul>
+        L’application est en relation avec deux autres applications pour:
+        <li> récupérer les taux de changes (conversions en devises)</li>
+        <li> récupérer les utilisateurs</li>
+    </ul>
+</p>
+
+<p>Enfin un service est présent permettant d'appliquer le taux de conversion sur les échéances si besoin.</p>
+
+<h3>But de l'exercice</h3>
+
+<p>
+    <ul>
+        Faire ressortir les notions métiers :
+        <li> Réorganiser les packages du projet </li>
+        <li> Distinguer les Entity et Value Object</li>
+        <li> Faire ressortir le produit en tant qu’aggrégat
+            <ul>
+                <li> Ajout d'un identifiant unique => ProductId </li>
+                <li> Supprimer les relations bi directionnnelles </li>
+            </ul>
+        </li>
+        <li> Ajouter la notion de FinancialPerson (les utilisateurs de notre domaine) </li>
+        <li> Rendre les entités moins anémiques
+            <ul>
+                <li> Déplacer des méthodes dans les entités </li>
+                <li> Intégrer des règles de validations dans les setters </li>
+            </ul>
+        </li>
+        <li> Ajouter de nouveaux objets
+            <ul>
+                <li> Des builders pour la construction plus lisible </li>
+                <li> Utilisez le CreditDecimal pour le crd (EcheanceRequest) </li>
+                <li> Rendre des concepts implicites, explicites (String email => EmailAddress object) et des règles de validations </li>
+            </ul>
+        </li>
+        <li> Découpler l’application des autres applications
+            <ul>
+                <li> mettre en place une couche anti corruption pour DataService </li>
+                <li> mettre en place une classe de traduction entre les Users et les FinancialPerson: Sales, Pricer et Trader </li>
+            </ul>
+        </li>
+    </ul>
+</p>
+
+</div>
+</div>
+</body>
+</html>
