@@ -114,22 +114,35 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.4</version>
-
                 <configuration>
                     <encoding>UTF-8</encoding>
                     <source>1.6</source>
                     <target>1.6</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>workshop-ddd:identity</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>workshop-ddd</groupId>
+                            <artifactId>identity</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <file>../lib/workshop-ddd/identity/1.0/identity-1.0.jar</file>
+                            <createChecksum>true</createChecksum>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>RefactoringRepo</id>
-            <name>RefactoringRepo</name>
-            <url>file://${project.basedir}/lib</url>
-        </repository>
-    </repositories>
 
 </project>
