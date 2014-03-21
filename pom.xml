@@ -120,28 +120,6 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>workshop-ddd:identity</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <configuration>
-                            <groupId>workshop-ddd</groupId>
-                            <artifactId>identity</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                            <file>../lib/workshop-ddd/identity/1.0/identity-1.0.jar</file>
-                            <createChecksum>true</createChecksum>
-                            <generatePom>true</generatePom>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
