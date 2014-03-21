@@ -84,6 +84,34 @@ La devise de référence est EUR.
 
 <h3>But de l'exercice</h3>
 
+L'exercice fournit un projet où le domaine est identifié. L'organisation du domaine se base sur l'architecture hexagonale (Port & Adapter).
+Le but de l'exercice est de poursuivre le refactoring entamé du domaine.
+
+
+<p>
+    <ul>
+        Une entité doit avoir une identité unique. Nous savons qu'un emprunt est identifié par un code de référence. C'est le but de la classe CreditId. Cette dernière possède comme attribut le code de référence et les méthodes equals et hashcode sont basées dessus. Nous devons ajouter cette classe à notre entité Credit :
+
+        <li> Modifier le fichier de configuration Credit.hbm et décommenter le code correspondant </li>
+        <li> Ajouter l'attribut CreditId dans la classe Credit </li>
+        <li> Ajouter de la validation dans le setter de l'attribut CreditId : ce dernier ne peut pas être null </li>
+    <ul>
+</p>
+
+<p>
+    <ul>
+        La classe CreditRepositoryImpl se trouve dans le domaine. Pour respecter les principes de l'architecture hexagonale, cette classe doit se trouver en dehors du domaine. Nous allons également la renommer afin d'avoir un nom plus parlant
+        <li> Ajouter un package com.xebia.infrastructure.persistence </li>
+        <li> Déplacer la classe CreditRepositoryImpl dans ce package </li>
+        <li> Renommer la classe en HibernateCreditRepository </li>
+        <li> Modifier également la classe de test correspondante </li>
+    <ul>
+</p>
+
+
+----------------------------------------------------------------------------------
+
+
 <p>
     <ul>
         Faire ressortir les notions métiers :
