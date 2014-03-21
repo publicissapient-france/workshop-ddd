@@ -7,10 +7,6 @@
         <id name="id" type="long" unsaved-value="-1">
             <generator class="native"/>
         </id>
-        <component name="creditId" class="com.xebia.domain.credit.CreditId">
-            <property name="id" column="product_id_id" type="java.lang.String"/>
-            <property name="referenceCode" column="referenceCode" type="java.lang.String"/>
-        </component>
         <property name="name" type="java.lang.String"/>
         <property name="technicalCode" type="java.lang.String"/>
         <property name="marketDate" type="java.util.Date"/>

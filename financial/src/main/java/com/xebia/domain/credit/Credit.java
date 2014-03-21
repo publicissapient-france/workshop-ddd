@@ -15,8 +15,6 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 public class Credit extends Entity {
 
-    private CreditId creditId;
-
     private String name;
 
     private String technicalCode;
@@ -29,22 +27,12 @@ public class Credit extends Entity {
 
     private CurrencyBook currencyBook = new CurrencyBook();
 
-    public Credit(CreditId creditId, String name, String technicalCode) {
-        this.setCreditId(creditId);
+    public Credit(String name, String technicalCode) {
         this.setName(name);
         this.setTechnicalCode(technicalCode);
     }
 
     protected Credit() {
-    }
-
-    public CreditId getCreditId() {
-        return creditId;
-    }
-
-    public void setCreditId(CreditId creditId) {
-        checkArgument(creditId != null, "CreditId is required");
-        this.creditId = creditId;
     }
 
     public String getName() {
