@@ -1,4 +1,4 @@
-package com.xebia.infrastructure.persistence;
+package com.xebia.domain.credit;
 
 import com.google.inject.Inject;
 import com.xebia.AbstractIntegrationTest;
@@ -13,7 +13,7 @@ import java.util.Date;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-public class HibernateCreditRepositoryTest extends AbstractIntegrationTest {
+public class CreditRepositoryImplTest extends AbstractIntegrationTest {
 
     @Inject
     private CreditRepository creditRepository;
