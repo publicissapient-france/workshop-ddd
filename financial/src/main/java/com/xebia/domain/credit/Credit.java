@@ -1,7 +1,5 @@
 package com.xebia.domain.credit;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.xebia.domain.currency.Currency;
 import com.xebia.domain.currency.CurrencyBook;
@@ -10,8 +8,6 @@ import com.xebia.model.Entity;
 
 import java.util.Date;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkArgument;
 
 public class Credit extends Entity {
 
@@ -97,15 +93,6 @@ public class Credit extends Entity {
         result = 31 * result + marketDate.hashCode();
         result = 31 * result + placeDate.hashCode();
         return result;
-    }
-
-    public List<EcheanceRequest> getEcheanceRequestActive() {
-        return Lists.newArrayList(Iterables.filter(getEcheanceRequests(), new Predicate<EcheanceRequest>() {
-            @Override
-            public boolean apply(EcheanceRequest echeanceRequest) {
-                return echeanceRequest.active();
-            }
-        }));
     }
 
     public List<EcheanceRequest> getEcheanceRequests() {

@@ -9,7 +9,6 @@ public class EcheanceRequestBuilder {
 
     public EcheanceRequestBuilder() {
         this.echeanceRequest = new EcheanceRequest();
-        this.echeanceRequest.setActive(true);
     }
 
     public EcheanceRequest build() {
@@ -23,11 +22,6 @@ public class EcheanceRequestBuilder {
 
     public EcheanceRequestBuilder withCrd(BigDecimal crd) {
         echeanceRequest.setCrd(crd);
-        return this;
-    }
-
-    public EcheanceRequestBuilder isInactive() {
-        echeanceRequest.setActive(false);
         return this;
     }
 }

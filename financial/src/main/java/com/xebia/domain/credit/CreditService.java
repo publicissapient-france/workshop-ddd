@@ -31,7 +31,7 @@ public class CreditService {
 
     public List<EcheanceRequest> valuationCredit(Credit credit, Date valueDate) {
 
-        List<EcheanceRequest> echeanceRequestActive = credit.getEcheanceRequestActive();
+        List<EcheanceRequest> echeanceRequestActive = credit.getEcheanceRequests();
         List<EcheanceRequest> echeanceRequestValuations = Lists.newArrayList();
 
         for (EcheanceRequest echeanceRequest : echeanceRequestActive) {
@@ -71,7 +71,7 @@ public class CreditService {
     }
 
     Integer countRemainingEcheanceAfter(Credit credit, final Date date) {
-        return Lists.newArrayList(Iterables.filter(credit.getEcheanceRequestActive(), new Predicate<EcheanceRequest>() {
+        return Lists.newArrayList(Iterables.filter(credit.getEcheanceRequests(), new Predicate<EcheanceRequest>() {
             @Override
             public boolean apply(EcheanceRequest echeanceRequest) {
                 return echeanceRequest.paymentDate().after(date);

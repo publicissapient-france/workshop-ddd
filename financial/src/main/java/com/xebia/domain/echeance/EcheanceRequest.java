@@ -12,8 +12,6 @@ public class EcheanceRequest extends IdValueObject {
 
     private BigDecimal crd;
 
-    private boolean active = true;
-
     protected EcheanceRequest() {
         super();
     }
@@ -27,10 +25,6 @@ public class EcheanceRequest extends IdValueObject {
         return crd;
     }
 
-    public boolean active() {
-        return active;
-    }
-
     public Date paymentDate() {
         return paymentDate;
     }
@@ -42,15 +36,6 @@ public class EcheanceRequest extends IdValueObject {
     protected void setCrd(BigDecimal crd) {
         this.crd = crd;
     }
-
-    protected void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public void disable() {
-        this.setActive(false);
-    }
-
 
     @Override
     public boolean equals(Object o) {

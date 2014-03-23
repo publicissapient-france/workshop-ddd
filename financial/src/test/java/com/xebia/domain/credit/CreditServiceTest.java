@@ -70,7 +70,7 @@ public class CreditServiceTest {
         productService.addEcheanceToCredit(productId, echeance);
         // Then
 
-        assertThat(credit.getEcheanceRequestActive()).hasSize(1).contains(echeance);
+        assertThat(credit.getEcheanceRequests()).hasSize(1).contains(echeance);
     }
 
     @Test
