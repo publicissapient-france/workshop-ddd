@@ -1,14 +1,10 @@
 package com.xebia.domain.credit;
 
 import com.google.common.collect.Lists;
-import com.xebia.domain.credit.CreditBuilder;
-import com.xebia.domain.credit.CreditService;
 import com.xebia.domain.currency.Currency;
 import com.xebia.domain.echeance.EcheanceRequest;
 import com.xebia.domain.echeance.EcheanceRequestBuilder;
-import com.xebia.domain.credit.Credit;
-import com.xebia.domain.credit.CreditRepository;
-import com.xebia.port.adapter.service.CreditDataService;
+import com.xebia.port.adapter.service.DataService;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +23,7 @@ public class CreditServiceTest {
     private CreditService productService;
 
     @Mock
-    private CreditDataService dataService;
+    private DataService dataService;
 
     @Mock
     private CreditRepository creditRepository;
