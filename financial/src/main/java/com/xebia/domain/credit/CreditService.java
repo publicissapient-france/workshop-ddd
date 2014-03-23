@@ -5,12 +5,10 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
-import com.xebia.domain.credit.Credit;
-import com.xebia.domain.credit.CreditRepository;
 import com.xebia.domain.currency.Currency;
 import com.xebia.domain.echeance.EcheanceRequest;
 import com.xebia.domain.echeance.EcheanceRequestBuilder;
-import com.xebia.port.adapter.service.CreditDataService;
+import com.xebia.port.adapter.service.DataService;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -19,12 +17,12 @@ import java.util.List;
 @Transactional
 public class CreditService {
 
-    private CreditDataService dataService;
+    private DataService dataService;
 
     private CreditRepository creditRepository;
 
     @Inject
-    public CreditService(CreditDataService dataService, CreditRepository creditRepository) {
+    public CreditService(DataService dataService, CreditRepository creditRepository) {
         this.dataService = dataService;
         this.creditRepository = creditRepository;
     }
@@ -58,7 +56,11 @@ public class CreditService {
 
     BigDecimal applyCrossChange(BigDecimal value, Date date) {
         BigDecimal crossChange = dataService.getCrossChange(date);
-        return value.divide(crossChange);
+        if (value != null) {
+            return value.divide(crossChange);
+        } else {
+            return BigDecimal.ZERO;
+        }
     }
 
     Boolean containsFundingCurrencies(List<Currency> currencies) {
