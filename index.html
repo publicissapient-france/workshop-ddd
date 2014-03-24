@@ -98,7 +98,8 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
 <h4>1. CreditId</h4>
 <p>
     <p>
-        Une entité doit avoir une identité unique. Nous savons qu'un emprunt est identifié par un code de référence. C'est le but de la classe CreditId. Cette dernière possède comme attribut le code de référence et les méthodes equals et hashcode sont basées dessus. Nous devons ajouter cette classe à notre entité Credit :
+        Une entité doit avoir une identité unique. Nous savons qu'un emprunt est identifié par un code de référence. En DDD nous devons typer cet aspect d'identité : c'est le but de la classe CreditId. Cette dernière possède de l'intelligence pour valider ses attributs (id et code de référence). Les méthodes equals et hashcode sont basées sur le code de référence.<br/> 
+        Nous devons ajouter cette classe à notre entité Credit :
     </p>
     <ul>
         <li> Modifier le fichier de configuration Credit.hbm et décommenter le code correspondant </li>
@@ -111,7 +112,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
 <p>
     <p>
     Nous allons encapsuler les échéances et les currencies. En effet en terme objet, ces notions doivent être encapsuler dans une notion de book: un EcheanceBook gère un ensemble d'EcheanceRequest.<br/>
-    Aussi en DDD, le point d'entrée pour les opérations sur les objets doit passer par l'entité
+    Aussi en DDD, le point d'entrée pour les opérations sur les objets doit passer par l'entité. L'ajout d'une échéance doit se faire pour la classe Credit et non par la classe EcheanceRequest.
     </p>
     <ul>
         <li> Créer la classe EcheanceBook avec comme attribut la liste des échéances du la classe Credit </li>
@@ -151,6 +152,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
 <p>
     <p>
         A cette étape, le code ne compile plus car la classe CreditService applique des taux de change. Cependant notre crd est un CreditDecimal et la classe DataService nous retourne des BigDecimal. Etant donnée que ce service est externe, nous allons ajouter une couche anticorruption.<br/>
+        Cette couche permet de traduire des notions similaires mais utilisées différemment suivant les domaines.<br/> 
         La classe CreditDataService a déjà été ajoutée. Nous remarquons que cette classe se situe dans le package port.adapter.service pour respecter l'architecture hexagonale.
     </p>
     <ul>
@@ -192,9 +194,9 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
         Mais il reste un peu de travail :
     </p>
     <ul>
-        <li> Dans le package com.xebia.port.adpater.service, créer la classe TranslatingFinancialPersonnService </li>
+        <li> Dans le package com.xebia.port.adpater.service, créer la classe TranslatingFinancialPersonnService qui doit implémenter l'interface FinancialPersonnService</li>
         <li> Ajouter l'attribut UserAdapter </li>
-        <li> Créer trois méthodes :  XXX XXXFrom(User user) et utilisent la méthode toFinancialPerson du UserAdapter (XXX = sales, pricer et trader)</li>
+        <li> Implémenter les méthodes en utilisant la méthode toFinancialPerson du UserAdapter </li>
         <li> Modifier les tests de la classe UserAdapter </li>
     </ul>
 </p>
