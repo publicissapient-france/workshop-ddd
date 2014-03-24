@@ -35,7 +35,7 @@ public class CreditService {
         for (EcheanceRequest echeanceRequest : echeanceRequestActive) {
             BigDecimal creditValuation = echeanceRequest.crd();
 
-            if (containsFundingCurrencies(credit.getCurrencies())) {
+            if (!containsFundingCurrencies(credit.getCurrencies())) {
                 creditValuation = applyCrossChange(creditValuation, valueDate);
             }
 
