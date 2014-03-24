@@ -1,6 +1,5 @@
 package com.xebia.domain.currency;
 
-import org.fest.assertions.Assertions;
 import org.junit.Test;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -33,5 +32,4 @@ public class CurrencyTest {
         // When / Then
         assertThat(yen.isFundingCurrency()).isFalse();
     }
-
 }
