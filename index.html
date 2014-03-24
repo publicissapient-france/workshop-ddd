@@ -104,20 +104,20 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
         <li> Modifier le fichier de configuration Credit.hbm et décommenter le code correspondant </li>
         <li> Ajouter l'attribut CreditId dans la classe Credit </li>
         <li> Ajouter de la validation dans le setter de l'attribut CreditId : ce dernier ne peut pas être null </li>
-    <ul>
+    </ul>
 </p>
 
-<h4>2. Echeance</h4>
+<h4>2. Echeance & Currency</h4>
 <p>
     <p>
-    Nous allons encapsuler les échéances. En effet en terme objet, les échéances doivent être encapsuler dans une notion de book.
+    Nous allons encapsuler les échéances et les currencies. En effet en terme objet, ces notions doivent être encapsuler dans une notion de book: un EcheanceBook gère un ensemble d'EcheanceRequest.<br/>
     Aussi en DDD, le point d'entrée pour les opérations sur les objets doit passer par l'entité
     </p>
     <ul>
         <li> Créer la classe EcheanceBook avec comme attribut la liste des échéances du la classe Credit </li>
-        <li> Modifier le fichier Credit.hbm </li>
+        <li> Modifier le fichier Credit.hbm (EcheanceBook et CurrencyBook deviennent des component) </li>
         <li> Ajouter la méthode addEcheance à la classe Credit </li>
-    <ul>
+    </ul>
 </p>
 
 <h4>3. HibernateCreditRepository</h4>
@@ -130,7 +130,8 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
         <li> Déplacer la classe CreditRepositoryImpl dans ce package </li>
         <li> Renommer la classe en HibernateCreditRepository </li>
         <li> Modifier également la classe de test correspondante </li>
-    <ul>
+        <li> Modifier la classe PersistenceModule pour prendre en compte cette implémentation </li>
+    </ul>
 </p>
 
 <h4>4. CreditDecimal</h4>
@@ -143,7 +144,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
         <li> Modifier la classe EcheanceRequest et utiliser CreditDecimal pour le crd </li>
         <li> Modifier le fichier hbm correspondant </li>
         <li> Modifier les tests </li>
-    <ul>
+    </ul>
 </p>
 
 <h4>5. CreditDataService</h4>
@@ -156,44 +157,62 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
         <li> Modifier la classe CreditDataService qui doit avoir comme attribut la classe DataService. Cette classe aura comme méthode getCrossChange et doit retourner un CreditDecimal </li>
         <li> Modifier la classe CreditService </li>
         <li> Modifier les tests </li>
-    <ul>
+    </ul>
 </p>
 
-
-----------------------------------------------------------------------------------
-
-
+<h4>6. CreditApplicationService</h4>
 <p>
+    <p>
+        Maintenant que la classe CreditService a été modifié, nous remarquons que son emplacement ne va pas. En effet cette dernière contient une référence vers CreditRepository (le domaine) et vers CreditDataService (extérieur). Toujours pour respecter notre architecture, nous devons déplacer cette classe.
+    </p>
     <ul>
-        Faire ressortir les notions métiers :
-        <li> Réorganiser les packages du projet </li>
-        <li> Distinguer les Entity et Value Object</li>
-        <li> Faire ressortir le produit en tant qu’aggrégat
-            <ul>
-                <li> Ajout d'un identifiant unique => ProductId </li>
-                <li> Supprimer les relations bi directionnnelles </li>
-            </ul>
-        </li>
-        <li> Ajouter la notion de FinancialPerson (les utilisateurs de notre domaine) </li>
-        <li> Rendre les entités moins anémiques
-            <ul>
-                <li> Déplacer des méthodes dans les entités </li>
-                <li> Intégrer des règles de validations dans les setters </li>
-            </ul>
-        </li>
-        <li> Ajouter de nouveaux objets
-            <ul>
-                <li> Des builders pour la construction plus lisible </li>
-                <li> Utilisez le CreditDecimal pour le crd (EcheanceRequest) </li>
-                <li> Rendre des concepts implicites, explicites (String email => EmailAddress object) et des règles de validations </li>
-            </ul>
-        </li>
-        <li> Découpler l’application des autres applications
-            <ul>
-                <li> mettre en place une couche anti corruption pour DataService </li>
-                <li> mettre en place une classe de traduction entre les Users et les FinancialPerson: Sales, Pricer et Trader </li>
-            </ul>
-        </li>
+        <li> Déplacer la classe CreditService dans le package com.xebia.application </li>
+        <li> Renommer CreditService en CreditApplicationService </li>
+    </ul>
+    <p>
+        Ce package permet de regrouper les services qui sont en relation avec toute l'application. Le nommage de la classe renforce cet aspect. Nous n'avons pas besoin de chercher pendant des heures pour comprendre ce que la classe fait.
+    </p>
+</p>
+
+<h4>7. FinancialPerson</h4>
+<p>
+    <p>
+        Notre application communique avec un module de gestion des utilisateurs. Ces derniers possèdent un certain nombre de caractéristiques. Dans notre domaine, seul les attributs name et email nous intéressent. C'est dans cet optique que la classe FinancialPerson a été créée.<br/>
+        Nous allons ajouter les trois types d'utilisateurs qui nous intéressent. Le but est de rendre des concepts implicites, explicites :
+    </p>
+    <ul>
+        <li> Dans le package financialPerson, ajouter trois classes final qui héritent de FinancialPerson : Sales, Pricer et Trader </li>
+    </ul>
+</p>
+
+<h4>8. TranslatingFinancialPersonService</h4>
+<p>
+    <p>
+        Maintenant que nous avons les utilisateurs dans notre domaine, nous devons les initialiser avec les utilisateurs du module. Pour cela nous allons ajouter un élément de traduction du contexte utilisateurs à notre contexte. La classe UserAdapter a été créée dans ce but. A partir d'un User elle permet de construire une FinancialPerson.
+        Mais il reste un peu de travail :
+    </p>
+    <ul>
+        <li> Dans le package com.xebia.port.adpater.service, créer la classe TranslatingFinancialPersonnService </li>
+        <li> Ajouter l'attribut UserAdapter </li>
+        <li> Créer trois méthodes :  XXX XXXFrom(User user) et utilisent la méthode toFinancialPerson du UserAdapter (XXX = sales, pricer et trader)</li>
+        <li> Modifier les tests de la classe UserAdapter </li>
+    </ul>
+</p>
+
+<h4>9. EmailAddress</h4>
+<p>
+    <p>
+        Toujours dans le but de rendre des concepts implicites, explicites, nous allons ajouter un value object EmailAddress. En effet cette classe se chargera de valider le format du mail. Nous appliquons içi le principe SRP (Single Responsibility Principle)
+    </p>
+    <ul>
+        <li> Dans le package com.xebia.domain.financialPerson, créer la classe EmailAddress en final </li>
+        <li> Créer un constructeur public avec comme paramètre String mail. Ce constructeur fait appel à la méthode <code>private void setMail (String mail)</code> </li>
+        <li> L'usage du TDD est conseillé </li>
+        <li> Ce setter doit attribuer la chaîne de caractère mais aussi la valider. Il faut vérifier la non nullité et le format du mail. Voici la regex pour vous aider <code>
+        qhgdl</code></li>
+        <li> Modifier le type de l'attribut email dans la classe FinancialPerson </li>
+        <li> Modifier la classe UserAdapter </li>
+        <li> Modifier les tests </li>
     </ul>
 </p>
 
