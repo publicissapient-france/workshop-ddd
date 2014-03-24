@@ -21,12 +21,10 @@
             <one-to-many class="com.xebia.domain.echeance.EcheanceRequest"/>
         </bag>
 
-        <component name="currencyBook">
-            <bag name="currencies" cascade="all,delete-orphan" inverse="false" lazy="true">
-                <key column="DEVISE_ID"/>
-                <one-to-many class="com.xebia.domain.currency.Currency"/>
-            </bag>
-        </component>
+        <bag name="currencies" cascade="all,delete-orphan" inverse="false" lazy="true">
+            <key column="DEVISE_ID"/>
+            <one-to-many class="com.xebia.domain.currency.Currency"/>
+        </bag>
 
     </class>
 </hibernate-mapping>
