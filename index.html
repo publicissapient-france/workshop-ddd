@@ -115,10 +115,14 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
     Aussi en DDD, le point d'entrée pour les opérations sur les objets doit passer par l'entité. L'ajout d'une échéance doit se faire pour la classe Credit et non par la classe EcheanceRequest.
     </p>
     <ul>
-        <li> Créer la classe EcheanceBook avec comme attribut la liste des échéances du la classe Credit </li>
+        <li> Créer la classe EcheanceRequestBook avec comme attribut la liste des échéances du la classe Credit dans le package aproprié</li>
+        <li> Créer la classe CurrencyBook avec comme attribut la liste des currencies du la classe Credit dans le package aproprié</li>
+        <li> Ajouter la méthode addEcheanceRequest à la classe Credit </li>
+        <li> Ajouter la méthode addCurrency à la classe Credit </li>
         <li> Modifier le fichier Credit.hbm (EcheanceBook et CurrencyBook deviennent des component) </li>
-        <li> Ajouter la méthode addEcheance à la classe Credit </li>
     </ul>
+    
+    <p>Après ce refactoring, les tests peuvent de nouveau passer.</p>
 </p>
 
 <h4>3. HibernateCreditRepository</h4>
