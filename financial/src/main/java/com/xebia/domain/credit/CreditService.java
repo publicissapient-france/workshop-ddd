@@ -11,6 +11,8 @@ import com.xebia.domain.echeance.EcheanceRequestBuilder;
 import com.xebia.port.adapter.service.DataService;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 
@@ -27,8 +29,32 @@ public class CreditService {
         this.creditRepository = creditRepository;
     }
 
-    public List<EcheanceRequest> valuationCredit(Credit credit, Date valueDate) {
+    public List<EcheanceRequest> generateRepaymentSchedule(Credit credit, BigDecimal creditFund, BigDecimal interestRate, int monthTimeDuration) {
+        BigDecimal monthlyPayment = computeMonthlyPayment(creditFund, interestRate, monthTimeDuration);
+        BigDecimal remainingCredit = creditFund;
 
+        for (int i = 0; i < monthTimeDuration; i++) {
+            BigDecimal interest = remainingCredit.multiply(interestRate.divide(new BigDecimal(monthTimeDuration), MathContext.DECIMAL32)).setScale(2, RoundingMode.HALF_EVEN);
+
+            remainingCredit = remainingCredit.subtract(monthlyPayment.subtract(interest)).setScale(2, RoundingMode.HALF_EVEN);
+
+            credit.getEcheanceRequests().add(new EcheanceRequest(null, remainingCredit.setScale(2, RoundingMode.HALF_EVEN).max(BigDecimal.ZERO)));
+        }
+
+        return credit.getEcheanceRequests();
+    }
+
+    BigDecimal computeMonthlyPayment(BigDecimal creditFund, BigDecimal interestRate, int monthDuration) {
+        MathContext mc = MathContext.DECIMAL32;
+
+        BigDecimal result = creditFund.multiply(interestRate, mc)
+                .divide(new BigDecimal("12"), mc)
+                .divide(BigDecimal.ONE.subtract(BigDecimal.ONE.add(interestRate.divide(new BigDecimal("12"), mc)).pow(-monthDuration, mc), mc), mc);
+
+        return result.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+    }
+
+    public List<EcheanceRequest> valuationCredit(Credit credit, Date valueDate) {
         List<EcheanceRequest> echeanceRequestActive = credit.getEcheanceRequests();
         List<EcheanceRequest> echeanceRequestValuations = Lists.newArrayList();
 
@@ -58,7 +84,8 @@ public class CreditService {
         BigDecimal crossChange = dataService.getCrossChange(date);
         if (value != null) {
             return value.divide(crossChange);
-        } else {
+        }
+        else {
             return BigDecimal.ZERO;
         }
     }
