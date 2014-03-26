@@ -104,6 +104,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
     <ul>
         <li> Modifier le fichier de configuration Credit.hbm et décommenter le code correspondant </li>
         <li> Ajouter l'attribut CreditId dans la classe Credit </li>
+        <li> Modifier les méthodes equals et hashcode pour prendre en compte cet attribut</li>
         <li> Ajouter de la validation dans le setter de l'attribut CreditId : ce dernier ne peut pas être null. (n'hésitez pas à utiliser com.google.common.base.Preconditions.checkArgument)</li>
     </ul>
 </p>
@@ -120,6 +121,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
         <li> Ajouter la méthode addEcheanceRequest à la classe Credit </li>
         <li> Ajouter la méthode addCurrency à la classe Credit </li>
         <li> Modifier le fichier Credit.hbm (EcheanceBook et CurrencyBook deviennent des component) </li>
+        <li> Relancer les tests </li>
     </ul>
     
     <p>Après ce refactoring, les tests peuvent de nouveau passer.</p>
@@ -135,7 +137,6 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
         <li> Déplacer la classe CreditRepositoryImpl dans ce package </li>
         <li> Renommer la classe en HibernateCreditRepository </li>
         <li> Modifier également la classe de test correspondante </li>
-        <li> Modifier la classe PersistenceModule pour prendre en compte cette implémentation </li>
     </ul>
 </p>
 
@@ -229,7 +230,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
     <br/>Si vous voulez approfondir:
     <ul>
         <li><a href="http://blog.infosaurus.fr/public/docs/DDDViteFaitPartie1.pdf">http://blog.infosaurus.fr/public/docs/DDDViteFaitPartie1.pdf</a></li>
-        <li><a href="http://en.wikipedia.org/wiki/Domain-driven_design"></a>http://en.wikipedia.org/wiki/Domain-driven_design</li>
+        <li><a href="http://en.wikipedia.org/wiki/Domain-driven_design">http://en.wikipedia.org/wiki/Domain-driven_design</a></li>
         <li><a href="http://alistair.cockburn.us/Hexagonal+architecture">http://alistair.cockburn.us/Hexagonal+architecture</a></li>
         <li><a href="http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html">http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html</a></li>
     </ul>
