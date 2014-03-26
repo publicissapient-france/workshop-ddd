@@ -38,7 +38,7 @@ public class CreditDecimal implements Serializable {
     }
 
     public CreditDecimal divide(CreditDecimal number) {
-        if (number != null && !number.getValue().equals(BigDecimal.ZERO)) {
+        if (number != null && !BigDecimal.ZERO.equals(number.getValue())) {
             return new CreditDecimal(this.getValue().divide(number.getValue(), MathContext.DECIMAL64));
         }
         return CreditDecimal.ZERO;
@@ -46,12 +46,5 @@ public class CreditDecimal implements Serializable {
 
     public BigDecimal getValue() {
         return value;
-    }
-
-    public int compareTo(CreditDecimal number) {
-        if (number != null && BigDecimal.ZERO.compareTo(number.getValue()) > 0) {
-            return this.getValue().compareTo(number.getValue());
-        }
-        return -1;
     }
 }
