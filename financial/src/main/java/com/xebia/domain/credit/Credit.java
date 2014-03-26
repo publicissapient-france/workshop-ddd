@@ -77,9 +77,7 @@ public class Credit extends Entity {
 
         Credit credit = (Credit) o;
 
-        if (!marketDate.equals(credit.marketDate)) return false;
         if (!name.equals(credit.name)) return false;
-        if (!placeDate.equals(credit.placeDate)) return false;
         if (!technicalCode.equals(credit.technicalCode)) return false;
 
         return true;
@@ -89,8 +87,6 @@ public class Credit extends Entity {
     public int hashCode() {
         int result = name.hashCode();
         result = 31 * result + technicalCode.hashCode();
-        result = 31 * result + marketDate.hashCode();
-        result = 31 * result + placeDate.hashCode();
         return result;
     }
 
