@@ -104,7 +104,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
     <ul>
         <li> Modifier le fichier de configuration Credit.hbm et décommenter le code correspondant </li>
         <li> Ajouter l'attribut CreditId dans la classe Credit </li>
-        <li> Ajouter de la validation dans le setter de l'attribut CreditId : ce dernier ne peut pas être null </li>
+        <li> Ajouter de la validation dans le setter de l'attribut CreditId : ce dernier ne peut pas être null. (n'hésitez pas à utiliser com.google.common.base.Preconditions.checkArgument)</li>
     </ul>
 </p>
 
@@ -215,12 +215,23 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
     <ul>
         <li> Dans le package com.xebia.domain.financialPerson, créer la classe EmailAddress en final </li>
         <li> Créer un constructeur public avec comme paramètre String mail. Ce constructeur fait appel à la méthode <code>private void setMail (String mail)</code> </li>
-        <li> L'usage du TDD est conseillé </li>
+        <li> L'usage du TDD est conseillé (vous pouvez aussi directement aller modifier le test existant)</li>
         <li> Ce setter doit attribuer la chaîne de caractère mais aussi la valider. Il faut vérifier la non nullité et le format du mail. Voici la regex pour vous aider <code>
-        "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*"</code></li>
+        "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*"</code> La encore allez voir du côté de com.google.common.base ;)</li>
         <li> Modifier le type de l'attribut email dans la classe FinancialPerson </li>
         <li> Modifier la classe UserAdapter </li>
-        <li> Modifier les tests </li>
+        <li> Relancer une dernière fois les tests pour vérifier que votre Refactoring n'a pas modifié le comportement métier !</li>
+    </ul>
+</p>
+
+<h4>10. Bravo !</h4>
+<p>Bravo pour avez maintenant du code conçu autour du modèle métier en s'inspirant de l'architecture hexagonal.
+    <br/>Si vous voulez approfondir:
+    <ul>
+        <li><a href="http://blog.infosaurus.fr/public/docs/DDDViteFaitPartie1.pdf">http://blog.infosaurus.fr/public/docs/DDDViteFaitPartie1.pdf</a></li>
+        <li><a href="http://en.wikipedia.org/wiki/Domain-driven_design"></a>http://en.wikipedia.org/wiki/Domain-driven_design</li>
+        <li><a href="http://alistair.cockburn.us/Hexagonal+architecture">http://alistair.cockburn.us/Hexagonal+architecture</a></li>
+        <li><a href="http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html">http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html</a></li>
     </ul>
 </p>
 
