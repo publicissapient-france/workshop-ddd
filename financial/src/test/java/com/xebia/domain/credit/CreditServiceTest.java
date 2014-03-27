@@ -1,6 +1,5 @@
 package com.xebia.domain.credit;
 
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.xebia.domain.currency.Currency;
 import com.xebia.domain.echeance.EcheanceRequest;
@@ -15,7 +14,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -102,36 +100,4 @@ public class CreditServiceTest {
         assertThat(result).isEqualByComparingTo(BigDecimal.valueOf(5));
 
     }
-
-    @Test
-    public void should_compute_monthly_payment_for_12_months_credit_of_10000() {
-        // Given
-        BigDecimal creditFund = new BigDecimal("10000");
-        BigDecimal interestRate = new BigDecimal("0.02");
-        int monthPeriod = 12;
-
-        // When
-        BigDecimal monthlyPayment = creditService.computeMonthlyPayment(creditFund, interestRate, monthPeriod);
-
-        // Then
-        assertThat(monthlyPayment).isEqualByComparingTo(new BigDecimal("842.39"));
-    }
-
-    @Test
-    public void should_generate_repayment_schedule() {
-        // Given
-        BigDecimal creditFund = new BigDecimal("10000");
-        BigDecimal interestRate = new BigDecimal("0.02");
-        int monthPeriod = 12;
-
-        Credit credit = new Credit();
-
-        // When
-        List<EcheanceRequest> echeanceRequests = creditService.generateRepaymentSchedule(credit, creditFund, interestRate, monthPeriod);
-
-        // Then
-        assertThat(echeanceRequests).hasSize(12);
-        assertThat(Iterables.getLast(echeanceRequests).crd()).isEqualByComparingTo(BigDecimal.ZERO);
-    }
-
 }

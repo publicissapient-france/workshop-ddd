@@ -97,5 +97,4 @@ public class Credit extends Entity {
     public void setEcheanceRequests(List<EcheanceRequest> echeanceRequests) {
         this.echeanceRequests = echeanceRequests;
     }
-
 }
