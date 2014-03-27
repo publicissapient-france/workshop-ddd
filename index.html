@@ -105,7 +105,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
         <li> Modifier le fichier de configuration Credit.hbm et décommenter le code correspondant </li>
         <li> Ajouter l'attribut CreditId dans la classe Credit </li>
         <li> Modifier les méthodes equals et hashcode pour prendre en compte cet attribut</li>
-        <li> Ajouter de la validation dans le setter de l'attribut CreditId : ce dernier ne peut pas être null. (n'hésitez pas à utiliser com.google.common.base.Preconditions.checkArgument)</li>
+        <li> Ajouter de la validation dans le setter de l'attribut CreditId : ce dernier ne peut pas être null. (n'hésitez pas à utiliser <code>com.google.common.base.Preconditions.checkArgument</code>)</li>
     </ul>
 </p>
 
@@ -133,7 +133,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
         La classe CreditRepositoryImpl se trouve dans le domaine. Pour respecter les principes de l'architecture hexagonale, cette classe doit se trouver en dehors du domaine. Nous allons également la renommer afin d'avoir un nom plus parlant
     </p>
     <ul>
-        <li> Ajouter un package com.xebia.infrastructure.persistence </li>
+        <li> Ajouter un package <code>com.xebia.infrastructure.persistence</code> </li>
         <li> Déplacer la classe CreditRepositoryImpl dans ce package </li>
         <li> Renommer la classe en HibernateCreditRepository </li>
         <li> Modifier également la classe de test correspondante </li>
@@ -173,7 +173,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
         Maintenant que la classe CreditService a été modifié, nous remarquons que son emplacement ne va pas. En effet cette dernière contient une référence vers CreditRepository (le domaine) et vers CreditDataService (extérieur). Toujours pour respecter notre architecture, nous devons déplacer cette classe.
     </p>
     <ul>
-        <li> Déplacer la classe CreditService dans le package com.xebia.application </li>
+        <li> Déplacer la classe CreditService dans le package <code>com.xebia.application</code> </li>
         <li> Renommer CreditService en CreditApplicationService </li>
         <li> Déplacer les tests dans le bon package et voir ci ceux-ci sont toujours au vert</li>
     </ul>
@@ -189,7 +189,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
         Nous allons ajouter les trois types d'utilisateurs qui nous intéressent. Le but est de rendre des concepts implicites, explicites :
     </p>
     <ul>
-        <li> Dans le package financialPerson, ajouter trois classes final qui héritent de FinancialPerson : Sales, Pricer et Trader </li>
+        <li> Dans le package <code>com.xebia.domain.financialPerson</code>, ajouter trois classes final qui héritent de FinancialPerson : Sales, Pricer et Trader </li>
     </ul>
 </p>
 
@@ -201,8 +201,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
     </p>
     <ul>
         <li>Décommenter les méthodes à implémenter dans l'interface FinancialPersonService</li>
-        <li> Dans le package com.xebia.port.adpater.service, créer la classe TranslatingFinancialPersonService qui doit implémenter l'interface FinancialPersonService</li>
-        <li>Créer les classes Sales, Pricer et Trader dans le package com.xebia.domain.financialPerson et étendant la classe FinancialPerson</li>
+        <li> Dans le package <code>com.xebia.port.adpater.service</code>, créer la classe TranslatingFinancialPersonService qui doit implémenter l'interface FinancialPersonService</li>
         <li> Ajouter l'attribut UserAdapter </li>
         <li> Implémenter les méthodes en utilisant la méthode toFinancialPerson du UserAdapter </li>
         <li> Modifier les tests de la classe UserAdapter </li>
@@ -215,11 +214,11 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
         Toujours dans le but de rendre des concepts implicites, explicites, nous allons ajouter un value object EmailAddress. En effet cette classe se chargera de valider le format du mail. Nous appliquons içi le principe SRP (Single Responsibility Principle)
     </p>
     <ul>
-        <li> Dans le package com.xebia.domain.financialPerson, créer la classe EmailAddress en final </li>
+        <li> Dans le package <code>com.xebia.domain.financialPerson</code>, créer la classe EmailAddress en final </li>
         <li> Créer un constructeur public avec comme paramètre String mail. Ce constructeur fait appel à la méthode <code>private void setMail (String mail)</code> </li>
         <li> L'usage du TDD est conseillé (vous pouvez aussi directement aller modifier le test existant)</li>
         <li> Ce setter doit attribuer la chaîne de caractère mais aussi la valider. Il faut vérifier la non nullité et le format du mail. Voici la regex pour vous aider <code>
-        "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*"</code> La encore allez voir du côté de com.google.common.base ;)</li>
+        "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*"</code> La encore allez voir du côté de <code>com.google.common.base</code> ;)</li>
         <li> Modifier le type de l'attribut email dans la classe FinancialPerson </li>
         <li> Modifier la classe UserAdapter </li>
         <li> Relancer une dernière fois les tests pour vérifier que votre Refactoring n'a pas modifié le comportement métier !</li>
