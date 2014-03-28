@@ -146,7 +146,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
 <p>
     <p>
         Nous allons modifier la classe EcheanceRequest et son attribut crd. En effet cet attribut est un BigDecimal : pour effectuer des opérations nous devons tester la nullité et gérer les cas d'exception.<br/>
-        C'est dans cet optique que la classe CreditDecimal a été créée. Cette dernière encapsule les traitements (gestion des opérations et arrondis). De plus nous avons également défini cette classe comme un attribut Hibernate.
+        C'est dans cette optique que la classe CreditDecimal a été créée. Cette dernière encapsule les traitements (gestion des opérations et arrondis). De plus nous avons également défini cette classe comme un attribut Hibernate.
     </p>
     <ul>
         <li> Modifier la classe EcheanceRequest et utiliser CreditDecimal pour le crd </li>
