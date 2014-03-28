@@ -116,7 +116,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
     Aussi en DDD, le point d'entrée pour les opérations sur les objets doit passer par l'entité. L'ajout d'une échéance doit se faire pour la classe Credit et non par la classe EcheanceRequest.
     </p>
     <ul>
-        <li> Créer la classe EcheanceRequestBook avec comme attribut la liste des échéances de la classe Credit dans le package aproprié</li>
+        <li> Créer la classe EcheanceRequestBook avec comme attribut la liste des échéances du la classe Credit dans le package approprié</li>
         <li> Créer la classe CurrencyBook avec comme attribut la liste des currencies du la classe Credit dans le package aproprié</li>
         <li> Ajouter les attributs echeanceBook et currencyBook à la classe Credit </li>
         <li> Ajouter la méthode addEcheanceRequest à la classe Credit </li>
@@ -158,7 +158,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
 <h4>5. CreditDataService</h4>
 <p>
     <p>
-        A cette étape, le code ne compile plus car la classe CreditService applique des taux de change. Cependant notre crd est un CreditDecimal et la classe DataService nous retourne des BigDecimal. Etant donné que ce service est externe, nous allons ajouter une couche anticorruption.<br/>
+        A cette étape, le code ne compile plus car la classe CreditService applique des taux de change. Cependant notre crd est un CreditDecimal et la classe DataService nous retourne des BigDecimal. Etant donnée que ce service est externe, nous allons ajouter une couche anticorruption.<br/>
         Cette couche permet de traduire des notions similaires mais utilisées différemment suivant les domaines.<br/> 
         La classe CreditDataService a déjà été ajoutée. Nous remarquons que cette classe se situe dans le package port.adapter.service pour respecter l'architecture hexagonale.
     </p>
@@ -213,7 +213,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
 <h4>9. EmailAddress</h4>
 <p>
     <p>
-        Toujours dans le but de rendre des concepts implicites explicites, nous allons ajouter un value object EmailAddress. En effet cette classe se chargera de valider le format du mail. Nous appliquons içi le principe SRP (Single Responsibility Principle)
+        Toujours dans le but de rendre des concepts implicites, explicites, nous allons ajouter un value object EmailAddress. En effet cette classe se chargera de valider le format du mail. Nous appliquons içi le principe SRP (Single Responsibility Principle)
     </p>
     <ul>
         <li> Dans le package <code>com.xebia.domain.financialPerson</code>, créer la classe EmailAddress en final </li>
