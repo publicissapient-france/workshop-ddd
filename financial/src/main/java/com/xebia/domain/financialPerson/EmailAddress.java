@@ -25,7 +25,7 @@ public final class EmailAddress implements Serializable {
     return mail;
   }
 
-  private void validateMail(String mail) {
+  protected void validateMail(String mail) {
     checkArgument(!isNullOrEmpty(mail), "The email is required.");
     checkArgument(matches("\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*", mail), "Email format is invalid.");
 
