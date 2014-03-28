@@ -11,8 +11,7 @@ public final class EmailAddress implements Serializable {
   private String mail;
 
   public EmailAddress(String mail) {
-    validateMail(mail);
-    setMail(mail);
+    this.mail = validateMail(mail);
   }
 
   public EmailAddress(EmailAddress emailAddress) {
@@ -26,12 +25,10 @@ public final class EmailAddress implements Serializable {
     return mail;
   }
 
-  private void setMail(String mail) {
-    this.mail = mail;
-  }
-
-  protected void validateMail(String mail) {
+  protected String validateMail(String mail) {
     checkArgument(!isNullOrEmpty(mail), "The email is required.");
     checkArgument(matches("\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*", mail), "Email format is invalid.");
+
+    return mail;
   }
 }
