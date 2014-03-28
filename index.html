@@ -158,7 +158,7 @@ Afin d'appliquer un des principes de l'architecture hexagonale, la configuration
 <h4>5. CreditDataService</h4>
 <p>
     <p>
-        A cette étape, le code ne compile plus car la classe CreditService applique des taux de change. Cependant notre crd est un CreditDecimal et la classe DataService nous retourne des BigDecimal. Etant donnée que ce service est externe, nous allons ajouter une couche anticorruption.<br/>
+        A cette étape, le code ne compile plus car la classe CreditService applique des taux de change. Cependant notre crd est un CreditDecimal et la classe DataService nous retourne des BigDecimal. Etant donné que ce service est externe, nous allons ajouter une couche anticorruption.<br/>
         Cette couche permet de traduire des notions similaires mais utilisées différemment suivant les domaines.<br/> 
         La classe CreditDataService a déjà été ajoutée. Nous remarquons que cette classe se situe dans le package port.adapter.service pour respecter l'architecture hexagonale.
     </p>
